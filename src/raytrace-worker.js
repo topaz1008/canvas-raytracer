@@ -30,11 +30,11 @@ class RayTracer {
         const imageHeight = scene.imageHeight;
 
         // Projection distance
-        const invProjDist = 1.0 / (0.5 * scene.imageWidth / Math.tan(PI_OVER180 * 0.5 * scene.fov));
+        const invProjDist = 1.0 / (0.5 * imageWidth / Math.tan(PI_OVER180 * 0.5 * scene.fov));
 
         // For each pixel
-        for (let y = 0; y < scene.imageHeight; ++y) {
-            for (let x = 0; x < scene.imageWidth; ++x) {
+        for (let y = 0; y < imageHeight; ++y) {
+            for (let x = 0; x < imageWidth; ++x) {
                 let red = 0, green = 0, blue = 0,
                     rho = 1.0,
                     currentDepth = 0;
@@ -88,22 +88,22 @@ class RayTracer {
                         // Trace the ray from the intersection point
                         // back to the light
                         lightRay.dir = new Vec3(currentLight.position).sub(newStart);
-                        let fLightProj = lightRay.dir.dot(n);
-                        if (fLightProj <= 0.0) {
+                        let lightProj = lightRay.dir.dot(n);
+                        if (lightProj <= 0.0) {
                             continue;
                         }
 
-                        const LightDist = lightRay.dir.norm();
-                        if (LightDist === 0) {
+                        const lightDist = lightRay.dir.norm();
+                        if (lightDist === 0) {
                             continue;
                         }
 
-                        fLightProj /= LightDist;
+                        lightProj /= lightDist;
                         lightRay.dir = lightRay.dir.normalize();
 
                         // Check if the light ray is intersecting with anything
                         let inShadow = false;
-                        t = LightDist;
+                        t = lightDist;
                         for (let i = 0; i < scene.spheres.length; ++i) {
                             const hitInfo = this.#hitSphere(lightRay, scene.spheres[i], t);
                             if (hitInfo.hit === true) {
@@ -126,11 +126,11 @@ class RayTracer {
                                 normSquared = blinnDir.dot(blinnDir);
 
                             if (normSquared !== 0) {
-                                let Blinn = (1.0 / Math.sqrt(normSquared)) * Math.max(fLightProj - fViewProj, 0.0);
-                                Blinn = rho * Math.pow(Blinn, currentMaterial.power);
-                                red += Blinn * currentLight.r * currentMaterial.specular.r;
-                                green += Blinn * currentLight.g * currentMaterial.specular.g;
-                                blue += Blinn * currentLight.b * currentMaterial.specular.b;
+                                let blinn = (1.0 / Math.sqrt(normSquared)) * Math.max(lightProj - fViewProj, 0.0);
+                                blinn = rho * Math.pow(blinn, currentMaterial.power);
+                                red += blinn * currentLight.r * currentMaterial.specular.r;
+                                green += blinn * currentLight.g * currentMaterial.specular.g;
+                                blue += blinn * currentLight.b * currentMaterial.specular.b;
                             }
                         }
                     }
@@ -157,7 +157,7 @@ class RayTracer {
                 }
 
                 // Clamp and write final pixel colors mapped to 0-255
-                const pxIdx = (x + y * scene.imageWidth) * 4;
+                const pxIdx = (x + y * imageWidth) * 4;
 
                 this.buffer.data[pxIdx] = Math.min(red * 255.0, 255.0);
                 this.buffer.data[pxIdx + 1] = Math.min(green * 255.0, 255.0);
