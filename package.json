@@ -1,0 +1,16 @@
+{
+    "name": "canvas-raytracer",
+    "version": "1.0.0",
+    "description": "A simple raytracer in Javascript.",
+    "type": "module",
+    "license": "MIT",
+    "author": {
+        "name": "Topaz Bar",
+        "email": "topaz1008@gmail.com"
+    },
+    "keywords": [],
+    "dependencies": {},
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 0"
+    }
+}
