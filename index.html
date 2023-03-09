@@ -1,22 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+
+    <title>canvas-raytracer</title>
+
     <style>
-        body { margin: 0; background: #000000; color: #fff; }
-        canvas { background: #000; margin: 30px auto auto; display: block; }
-        h2 { text-align: center; display: block; margin-top: 50px; }
+        :root {
+            --max-width: 1280px;
+        }
+
+        body {
+            max-width: var(--max-width);
+            margin: auto;
+        }
     </style>
 </head>
 <body>
+<header>
+    <h2>A Simple Javascript Raytracer</h2>
+    <p>TODO: add explanation</p>
+    <details>
+        <summary>Source Code</summary>
+        <p>Can be found on my <a href="https://github.com/topaz1008/canvas-raytracer/" target="_blank">GitHub</a>.</p>
+    </details>
+</header>
 
-<h2 id="rendering">Rendering...</h2>
-<canvas id="canvas" style="cursor: default;"></canvas>
+<section>
+    <div id="canvas-container">
+        <h2 id="rendering" style="text-align: center;">Rendering...</h2>
+        <canvas id="canvas" style="cursor: default;"></canvas>
+    </div>
+
+</section>
 
 <script src="main.js" type="module"></script>
+
 
 </body>
 </html>
