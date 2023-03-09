@@ -14,30 +14,30 @@ export class Vec3 {
         }
     }
 
-    add(v) {
-        return new Vec3(this.x + v.x, this.y + v.y, this.z + v.z);
+    add(rhs) {
+        return new Vec3(this.x + rhs.x, this.y + rhs.y, this.z + rhs.z);
     }
 
-    sub(v) {
-        return new Vec3(this.x - v.x, this.y - v.y, this.z - v.z);
+    sub(rhs) {
+        return new Vec3(this.x - rhs.x, this.y - rhs.y, this.z - rhs.z);
     }
 
-    mult(c) {
-        return new Vec3(this.x * c, this.y * c, this.z * c);
+    mult(rhs) {
+        return new Vec3(this.x * rhs, this.y * rhs, this.z * rhs);
     }
 
     clone() {
         return new Vec3(this.x, this.y, this.z);
     }
 
-    dot(v) {
-        return this.x * v.x + this.y * v.y + this.z * v.z;
+    dot(rhs) {
+        return this.x * rhs.x + this.y * rhs.y + this.z * rhs.z;
     }
 
     normalize() {
-        const magnitude = 1.0 / Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
+        const invMagnitude = 1.0 / Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
 
-        return new Vec3(this.x * magnitude, this.y * magnitude, this.z * magnitude);
+        return new Vec3(this.x * invMagnitude, this.y * invMagnitude, this.z * invMagnitude);
     }
 
     norm() {
